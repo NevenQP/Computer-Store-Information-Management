@@ -41,9 +41,6 @@ class add_staff:
             self.add_staff_email = Label(self.window, text = "Email", fg = '#880808', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 4, column = 0)
             self.add_staff_email_e = Entry(self.window, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
             self.add_staff_email_e.grid(row = 4, column = 1)
-            self.add_staff_position = Label(self.window, text = "Position", fg = '#880808', bg = '#FFFFFA', font=('Montserrat Bold',16)).grid(row = 5, column = 0)
-            self.add_staff_position_e = Entry(self.window, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',16), textvariable = StringVar())
-            self.add_staff_position_e.grid(row = 5, column = 1)
 
             self.submit = Button(self.window, text = "Submit", fg = '#FFFFFA', bg = '#D64045', font=('Montserrat Bold',16), command = self.add_staff_data).place(x = 310, y = 225) 
         else:
@@ -57,14 +54,29 @@ class add_staff:
         dob = self.add_staff_dob_e.get()
         contact_number = self.add_staff_contact_number_e.get()
         email = self.add_staff_email_e.get()
-        position = self.add_staff_position_e.get()
 
-        if  name == '' or position == '' or dob == '' or contact_number == '' or email == '':
+        if  name == '' and dob == '' and contact_number == '' and email == '':
+            mes = Label(self.window, text = "Enter something", fg = '#880808', bg = '#FFFFFA', font=('Montserrat Bold',16))
+            mes.grid(row = 6, column = 1)
+            mes.after(3000,lambda:mes.destroy())
+        try:
+            contact_number = int(contact_number)
+        except:
+            mes = Label(self.window, text = "Invalid contact number", fg = '#880808', bg = 'white', font=('Microsoft Yahei UI light',16,'bold'))
+            mes.grid(row = 8, column = 1)
+            mes.after(3000,lambda:mes.destroy())
+            return
+
+        if  name == '' or dob == '' or contact_number == '' or email == '':
             mes = Label(self.window, text = "Invalid", fg = '#880808', bg = '#FFFFFA', font=('Montserrat Bold',16))
             mes.grid(row = 6, column = 1)
             mes.after(3000,lambda:mes.destroy())
+        elif contact_number == '' or len(str(contact_number)) != 10 or int(contact_number) < 0:
+            mes = Label(self.window, text = "Contact number must be 10 numbers", fg = '#880808', bg = '#FFFFFA', font=('Montserrat Bold',12))
+            mes.grid(row = 7, column = 1)
+            mes.after(3000,lambda:mes.destroy())  
         else:
-            self.staffs.append([self.id, name, dob, contact_number, email, position])
+            self.staffs.append([self.id, name, dob, contact_number, email])
             messagebox.showwarning("showinfo", "Success")
             
             with open("staff.txt", "w") as f:

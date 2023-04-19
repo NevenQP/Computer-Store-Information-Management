@@ -20,7 +20,7 @@ class Login:
       self.User_box = Entry(self.login, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',20), textvariable = StringVar())
       self.User_box.place(x = 350 , y = 200)
       self.Password = Label(self.login, text = "Password", fg = '#ffb601', bg = '#FFFFFA', font=('Montserrat',20, 'bold')).place(x = 100 , y = 300)
-      self.Password_box = Entry(self.login, fg = '#141204', bg = '#FFFFFA', font=('Montserrat',20), textvariable = StringVar())
+      self.Password_box = Entry(self.login, show="*", fg = '#141204', bg = '#FFFFFA', font=('Montserrat',20), textvariable = StringVar())
       self.Password_box.place(x = 350 , y = 300)
       self.Login_button = Button(self.login, text = "Log in", fg = '#FFFFFA', bg = '#880808', font=('Montserrat Bold',20), command = self.do_log_in).place(x = 340 , y = 400)
       self.Sign_up = Label(self.login, text = "Dont have an account ?", fg = '#F6AE2D', bg = '#FFFFFA', font=('Montserrat',15)).place(x = 200 , y = 505)
